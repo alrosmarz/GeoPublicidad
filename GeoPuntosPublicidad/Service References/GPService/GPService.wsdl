@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://gpservice.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://gpservice.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://gpservice.org/">
+      <s:element name="ObtienePuntosGuardadosLL">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="tipoPunto" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ObtienePuntosGuardadosLLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ObtienePuntosGuardadosLLResult" type="tns:ArrayOfPuntoGenericoBE" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPuntoGenericoBE">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PuntoGenericoBE" nillable="true" type="tns:PuntoGenericoBE" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="PuntoGenericoBE">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Latitud" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Longitud" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Titulo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Descripcion" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Subtitulo" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Fecha" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Icono" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Caracteristica" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TipoDemo" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="InsertaPuntoGenerico">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="titulo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="descripcion" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="subtitulo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="caracteristica" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="icono" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="tipoDemo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Latitud" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Longitud" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertaPuntoGenericoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InsertaPuntoGenericoResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ObtienePuntosGuardadosLLSoapIn">
+    <wsdl:part name="parameters" element="tns:ObtienePuntosGuardadosLL" />
+  </wsdl:message>
+  <wsdl:message name="ObtienePuntosGuardadosLLSoapOut">
+    <wsdl:part name="parameters" element="tns:ObtienePuntosGuardadosLLResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertaPuntoGenericoSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertaPuntoGenerico" />
+  </wsdl:message>
+  <wsdl:message name="InsertaPuntoGenericoSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertaPuntoGenericoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="GPServicesSoap">
+    <wsdl:operation name="ObtienePuntosGuardadosLL">
+      <wsdl:input message="tns:ObtienePuntosGuardadosLLSoapIn" />
+      <wsdl:output message="tns:ObtienePuntosGuardadosLLSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertaPuntoGenerico">
+      <wsdl:input message="tns:InsertaPuntoGenericoSoapIn" />
+      <wsdl:output message="tns:InsertaPuntoGenericoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GPServicesSoap" type="tns:GPServicesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtienePuntosGuardadosLL">
+      <soap:operation soapAction="http://gpservice.org/ObtienePuntosGuardadosLL" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertaPuntoGenerico">
+      <soap:operation soapAction="http://gpservice.org/InsertaPuntoGenerico" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="GPServicesSoap12" type="tns:GPServicesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ObtienePuntosGuardadosLL">
+      <soap12:operation soapAction="http://gpservice.org/ObtienePuntosGuardadosLL" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertaPuntoGenerico">
+      <soap12:operation soapAction="http://gpservice.org/InsertaPuntoGenerico" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GPServices">
+    <wsdl:port name="GPServicesSoap" binding="tns:GPServicesSoap">
+      <soap:address location="http://localhost:7924/GPService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="GPServicesSoap12" binding="tns:GPServicesSoap12">
+      <soap12:address location="http://localhost:7924/GPService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

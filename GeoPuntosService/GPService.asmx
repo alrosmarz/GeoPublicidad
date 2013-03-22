@@ -1,0 +1,1 @@
+﻿<%@ WebService Language="C#" CodeBehind="GPService.asmx.cs" Class="GeoPuntosService.GPServices" %>
