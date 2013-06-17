@@ -53,6 +53,87 @@ $(window).load(function(){
 {
     background-color:#96d1f8;
 }
+
+
+			#tabs{
+				margin:0;
+				padding:0;
+			}
+			#tabs .header{
+				min-height: 40px;
+				margin:0;
+				padding:0;
+				padding-left:10px;
+			}			
+			#tabs .header li{	
+				list-style:none;
+				float:left;
+				padding:0;
+				margin:0;
+				font-family:Arial;
+				margin-left:-15px;
+				cursor:pointer;
+				display:block;
+			}
+			#tabs .contents
+			{
+			    float:left;
+				border-bottom:solid 1px gray;
+				padding:13px;
+				margin:0;
+				background-color: white;
+			}
+			
+		
+			.title{
+				position:relative;
+				top:13px;
+				color:#8f8f8f;
+			}
+			.left,.right{
+				width:21px;
+				height:40px;
+				display: block;
+				text-indent: -99999px;
+				overflow: hidden;
+				background-repeat: no-repeat;
+				float:left;
+				margin:0;
+				padding:0;
+			}
+			
+			.center{
+				height:40px;
+				float:left;
+				margin:0;
+				padding:0;
+			}
+			.behind{
+				position:relative;
+				z-index:0;
+			}
+			.behind .left{
+				background-image: url('img/left-b.png');
+			}
+			.behind .right{
+				background-image: url('img/right-b.png');
+			}
+			.behind .center{
+				background-image: url('img/center-b.png');
+			}
+			.front{
+				position:relative;
+				z-index:10;
+			}
+			.front .left{
+				background-image: url('img/left-f.png');
+			}
+			.front .right{
+				background-image: url('img/right-f.png');
+			}
+			.front .center{
+				background-image: url('img/center-f.png');
+			}
 </style>
 
 
@@ -60,6 +141,36 @@ $(window).load(function(){
 
      $(document).ready(function () {
 
+
+         //tabs
+         $('#tabs .content').hide();
+         $('#tabs .content:eq(0)').show();
+
+         var GetHtmlItem = function (title) {
+             var result = '';
+             result += '<span class="left"></span>';
+             result += '<span class="center"><span class="title" title="' + title + '">' + title + '</span></span>';
+             result += '<span class="right"></span>';
+             return result;
+         };
+
+         var CreateTabs = function () {
+             $('#tabs .header li').each(function (idx) {
+                 var title = $(this).text();
+                 $(this).html(GetHtmlItem(title))
+						.unbind()
+						.bind('click', function () {
+						    $('#tabs .header li').removeClass('front').addClass('behind');
+						    $('#tabs .content').hide();
+						    $('#tabs .content:eq(' + idx + ')').show();
+						    $(this).addClass('front');
+						});
+
+             });
+         };
+         CreateTabs();
+
+         //google maps info
          var geocoder;
          var map;
          var infoWindow = new google.maps.InfoWindow;
@@ -248,32 +359,10 @@ $(window).load(function(){
 				<ul>
 					<li><a href="index.html">Inicio</a></li>
 					<li><a href="plazas.html">Plazas</a>
-						<!--<ul>
-							<li><a href="elements.html">Elements</a></li>
-							<li><a href="typography.html">Typography</a></li>
-							<li><a href="blog_single.html">Blog Single Post</a></li>
-							
-							<li><a href="javascript:">Pricing</a>
-								<ul>
-									<li><a href="pricing_2_cols.html">Pricing 2 Cols</a></li>
-                                    <li><a href="pricing_3_cols.html">Pricing 3 Cols</a></li>
-                                    <li><a href="pricing_4_cols.html">Pricing 4 Cols</a></li>
-                                    <li><a href="pricing_5_cols.html">Pricing 5 Cols</a></li>
-									
-								</ul>
-							</li>
-                            
-                            <li><a href="full_width.html">Full Width</a></li>
-<li><a href="404.html">404 Page</a></li>
-						</ul>-->
+						
 					</li>
 					<li><a href="obras.html">Obras en la ciudad</a>
-						<!--<ul>
-							<li><a href="portfolio_2_cols.html">Portfolio 2 Cols</a></li>
-							<li><a href="portfolio_3_cols.html">Portfolio 3 Cols</a></li>
-							<li><a href="portfolio_4_cols.html">Portfolio 4 Cols</a></li>
-							<li><a href="portfolio_details.html">Portfolio Details</a></li>
-						</ul>-->
+						
 					</li>
 					<li><a href="sucursales.html">Sucursales</a></li>
                     <li><a href="listapuntos.html">Lista de Puntos</a></li>
@@ -291,20 +380,59 @@ $(window).load(function(){
 		<!-- Page Title -->
 			<header class="container page_info clearfix">
 				
-					<h1 class="regular brown bottom_line">Lista de lugares </h1>
-				    Esta página muestra el listado de varios puntos con giros de negocios de todo tipo, esto para mostrar que se puede incluir cualquier tipo de negocio en este esquema, la visualización puede filtrarse por categorias o 
-                    busqueda especifica de palabras asociadas al giro
+					<h1 class="regular brown bottom_line">Búsqueda de lugares</h1>
+				    En esta página puedes escoger diferentes formas de búsqueda
 				<div class="clear"></div>
 			</header>
 			
 		<!-- /Page Title -->
-
-		
         <div class="container">
             <table width="100%">
                 <tr>
+                    <td>
+                      <div id="tabs">	
+			                
+			                <div class="header" >
+				                <ul>
+					                <li class="front">Casas</li>
+					                <li class="behind">Departamentos</li>
+					                <li class="behind">Comerciales</li>
+					                <li class="behind">Colonia/Zona</li>
+				                </ul>
+			                </div>
+			
+			                <div class="contents">
+				                <div class="content" align="left" style="display:none;">
+					                <fieldset>
+                                        <p>Rango de precio
+                                            <select id="ddlPrecioMinimo" name="ddlPrecioMinimo" >
+                                                <option value="1">$0 - 2,000</option>
+                                                <option value="2">$2,001 - $4,000</option>
+                                                <option value="3">$4,001 - $6,000</option>
+                                                <option value="4">$6,001 - $8,000</option>
+                                                <option value="5">$8,001 - $10,000</option>
+                                                <option value="6">Mayor de $10,000</option>
+                                            </select>
+                                        </p>
+                                       
+                                    </fieldset>
+				                </div>
+				                <div class="content"  align="left" style="display:none;">
+					                <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSesgKL_rRskFc6NUA-q7BWLHcfcmmaDxTv9O3mqfK1RMCwg55d" width="300" height="300"></img>
+				                </div>
+				                <div class="content"  align="left"  style="display:none;">
+					                <img src="http://www.athousandandone.com/photos/7/45d0b0e829fe6_s.jpg" width="300" height="300"></img>
+				                </div>				
+				                <div class="content" align="left" style="display:none;">
+					                <img src="http://3.bp.blogspot.com/-V4bM_bKKwxQ/UMCucc9vSyI/AAAAAAAAAr0/9i-AgzljO9A/s1600/fundo+do+mar.jpg" width="300" height="300"></img>
+				                </div>
+			                </div>
+		                </div>
+                    </td>
+                </tr>
+                <tr>
                     <td style="width:100%" valign="top">
-                    <div style="height:150px; overflow:auto;" >
+                    <div style="height:150px; overflow:auto; display:none;" >
                          <table id="tablaListado" width="100%" cellpadding="3" cellspacing="0">
 
                         </table>

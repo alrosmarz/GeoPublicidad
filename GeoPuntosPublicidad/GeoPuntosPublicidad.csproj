@@ -57,7 +57,25 @@
     <Content Include="blog.html" />
     <Content Include="blog_single.html" />
     <Content Include="contacto.html" />
+    <Content Include="contact.html" />
+    <Content Include="Copy of insertapunto.html" />
+    <Content Include="images\logo-small.png" />
+    <Content Include="images\wood-bg.jpg" />
+    <Content Include="js\jquery-1.4.1.min.js" />
+    <Content Include="styles\jquery.fancybox.css" />
+    <Content Include="js\jquery.fancybox.pack.js" />
+    <Content Include="js\lavalamp.js" />
+    <Content Include="new.html" />
     <Content Include="images\IconoOver.png" />
+    <Content Include="img\back.png" />
+    <Content Include="img\center-b.png" />
+    <Content Include="img\center-f.png" />
+    <Content Include="img\createAccountButton.png" />
+    <Content Include="img\inputSprite.png" />
+    <Content Include="img\left-b.png" />
+    <Content Include="img\left-f.png" />
+    <Content Include="img\right-b.png" />
+    <Content Include="img\right-f.png" />
     <Content Include="listapuntos.html" />
     <Content Include="css\msdropdown\dd.css" />
     <Content Include="css\msdropdown\flags.css" />
@@ -79,6 +97,8 @@
     <Content Include="js\jquery\tester.js" />
     <Content Include="js\msdropdown\jquery.dd.js" />
     <Content Include="js\msdropdown\jquery.dd.min.js" />
+    <Content Include="js\jquery.fancybox.js" />
+    <Content Include="styles\styles.css" />
     <Content Include="sucursales.html" />
     <Content Include="obras.html" />
     <Content Include="images\Icono1.png" />
@@ -259,6 +279,8 @@
     <Content Include="pricing_3_cols_sidebar.html" />
     <Content Include="pricing_4_cols.html" />
     <Content Include="pricing_5_cols.html" />
+    <Content Include="webcam.htm" />
+    <None Include="images\Thumbs.db" />
     <None Include="Service References\GPService\GeoPuntosPublicidad.GPService.PuntoGenericoBE.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

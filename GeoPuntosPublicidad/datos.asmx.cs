@@ -50,5 +50,13 @@ namespace GeoPuntosPublicidad
                 throw ex;
             }
         }
+
+        public void MailSend()
+        {
+            System.Web.Mail.MailMessage mensaje = new System.Web.Mail.MailMessage();
+
+            
+            
+        }
     }
 }
