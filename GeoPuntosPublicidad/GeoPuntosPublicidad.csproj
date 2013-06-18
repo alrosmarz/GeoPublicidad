@@ -62,6 +62,7 @@
     <Content Include="images\logo-small.png" />
     <Content Include="images\wood-bg.jpg" />
     <Content Include="js\jquery-1.4.1.min.js" />
+    <Content Include="search-zoom-icon.png" />
     <Content Include="styles\jquery.fancybox.css" />
     <Content Include="js\jquery.fancybox.pack.js" />
     <Content Include="js\lavalamp.js" />
