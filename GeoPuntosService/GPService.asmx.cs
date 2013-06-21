@@ -12,7 +12,7 @@ namespace GeoPuntosService
     /// <summary>
     /// Descripción breve de Service1
     /// </summary>
-    [WebService(Namespace = "http://tempuri.org/")]
+    [WebService(Namespace = "http://gpservice.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // Para permitir que se llame a este servicio Web desde un script, usando ASP.NET AJAX, quite la marca de comentario de la línea siguiente. 
@@ -47,26 +47,5 @@ namespace GeoPuntosService
             }
         }
 
-        [WebMethod]
-        public bool InsertaMail(string mail)
-        {
-            try
-            {
-                SqlCommand comando = new SqlCommand();
-                SqlConnection conexion = new SqlConnection(@"Data Source=KASSU;Initial Catalog=cgpre0_newsletter;User ID=alejandronews;Password=alejandr0");
-                comando.CommandText = "insert into mailsnewsletter (Mail,Fecha) values ('" + mail + "', getdate())";
-
-                comando.Connection = conexion;
-                conexion.Open();
-                comando.ExecuteNonQuery();
-                conexion.Close();
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
     }
 }

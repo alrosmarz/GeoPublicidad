@@ -85,21 +85,62 @@
 
      $(document).ready(function () {
 
+
+         var myOptions;
          var geocoder;
-         var map;
          var infoWindow = new google.maps.InfoWindow;
+         var markersArray = [];
+         var latlng;
 
-         var latlng = new google.maps.LatLng(21.879341, -102.287032);
+         if (navigator.geolocation) {
+             navigator.geolocation.getCurrentPosition(success, error);
+         } else {
+             error('msg');
+         }
 
-         var myOptions = {
-             zoom: 12,
-             center: latlng,
-             mapTypeId: google.maps.MapTypeId.ROADMAP
-         };
+         function error(msg) {
+             alert('no te haye');
 
-         map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+             latlng = new google.maps.LatLng(21.879341, -102.287032);
 
-         //getMarkersWS(map);
+             myOptions = {
+                 zoom: 5,
+                 center: latlng,
+                 mapTypeId: google.maps.MapTypeId.ROADMAP,
+                 zoomControlOptions: {
+                     style: google.maps.ZoomControlStyle.SMALL
+                 }
+             };
+
+             var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+             getMarkersWS(map);
+
+         }
+
+         function success(position) {
+             alert('ya te encontré');
+
+             latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+             myOptions = {
+                 zoom: 15,
+                 center: latlng,
+                 mapTypeControl: false,
+                 navigationControlOptions: { style: google.maps.NavigationControlStyle.SMALL },
+                 mapTypeId: google.maps.MapTypeId.ROADMAP
+             };
+
+             var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+             getMarkersWS(map);
+
+             var marker1 = new google.maps.Marker({
+                 position: latlng,
+                 map: map,
+                 title: "Ya te encontré, eso creo, con una punteria de mas o menos " + position.coords.accuracy + " metros)"
+             });
+         }
+
+       
 
          function getMarkersWS(map) {
 
@@ -107,10 +148,11 @@
                  type: "POST",
                  url: "datos.asmx/ObtienePuntosGuardados",
                  contentType: "application/json; charset=utf-8",
-                 data: "{'tipoDemo':'obras'}",
+                 data: "{'tipoDemo':'Lista'}",
                  dataType: "json",
                  success: function (response) {
                      var puntos = response.d;
+
 
                      $.each(puntos, function (index, p) {
 
@@ -119,12 +161,12 @@
                          var image = "";
 
                          image = 'images/' + p.Icono + ".png";
-                         
+
                          var marker = new google.maps.Marker({
                              map: map,
                              position: point,
                              icon: image,
-                             title: p.Estatus
+                             title: p.Titulo
                          });
 
                          var html = "<div class='infowin'><b>" + p.Titulo + "</b><br><i> " + p.Subtitulo + "</i><hr>";
@@ -133,6 +175,12 @@
 
                          //binds the infoWindow to the point
                          bindInfoWindow(marker, map, infoWindow, html, image);
+
+                         google.maps.event.addListener(map, "click", function () {
+                             infoWindow.close();
+                         });
+
+                         markersArray.push(marker);
 
                      });
 
@@ -199,9 +247,20 @@
             
             </div>
             <br />
-                <div class="lavalampIn orange">
-                <div id="map_canvas" class="map_canvas"></div>
+            
+            <div class="lavalampIn orange">
+                <div id="map_canvas" class="map_canvas" style="float:left;"></div>
+                
+                <div class="lavalampFilters yellow" >
+                    <div><input type="checkbox" value="casa" name="casa" />Casas</div>
+                    <div><input type="checkbox" value="casa" name="casa" />Departamentos</div>
+                    <div><input type="checkbox" value="casa" name="casa" />Estudios</div>
+                    <div><input type="checkbox" value="casa" name="casa" />Comercios</div>
+                </div>
+                
             </div>
+            
+           
         </div>
 </body>
 </html>
