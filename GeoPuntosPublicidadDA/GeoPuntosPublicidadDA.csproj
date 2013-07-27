@@ -42,7 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PuntoGenericoDA.cs" />
+    <Compile Include="GetInfoDB.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GeoPuntosPublicidadBE\GeoPuntosPublicidadBE.csproj">

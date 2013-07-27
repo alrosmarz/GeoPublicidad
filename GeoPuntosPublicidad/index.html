@@ -2,366 +2,574 @@
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en">
+<!--<![endif]-->
 <head>
-<meta charset="ISO-8859-1">
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-<title>Prototipos - Mapa v2</title>
-<meta name="description" content="" />
-<meta name="keywords" content="" />
-<meta name="robots" content="index,follow" />
-<link rel="shortcut icon" href="images/favicon.ico" /> 
-<link rel="stylesheet" href="css/prettyPhoto.css" type="text/css" />
-<link rel="stylesheet" href="css/flexslider.css" type="text/css" />
-<link rel="stylesheet" href="css/style.css" type="text/css" />
-<!--[if (gte IE 6)&(lte IE 8)]>
-<script type="text/javascript" src="js/html5.js"></script>
-<script type="text/javascript" src="js/selectivizr-min.js"></script>
-<link rel="stylesheet" href="css/ie_7.css" type="text/css" />
-<![endif]-->
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
+    <title>Registrate!</title>
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <meta name="robots" content="index,follow" />
+    <!--<link rel="shortcut icon" href="images/favicon.ico" />-->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" rel="Stylesheet" />
+    <script src="js/msdropdown/jquery.dd.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/msdropdown/dd.css" />
+    <script src="js/jquery.waitingpopup.js" type="text/javascript"></script>
+    <link href="styles/jquery-ui-1.8.7.custom.css" rel="stylesheet" type="text/css" />
+    <link href="styles/jquery.waitingpopup.css" rel="stylesheet" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Jura' rel='stylesheet' type='text/css' />
 
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.8.16.custom.min.js"></script>
-<script type="text/javascript" src="js/all-in-one-min.js"></script>
-<script type="text/javascript" src="js/setup.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
-<script type="text/javascript">
-$(window).load(function(){
-	$('#demo-side-bar').removeAttr('style');
-});
-</script>
-<style type="text/css">
-.demobar{display:none;}
-#demo-side-bar{top:53px!important;left:90%!important;display:block!important;}
-</style>
+    <script src="script.js" type="text/javascript"></script>
+    <link href="style.css" rel="stylesheet" type="text/css" />
+
+    <style type="text/css">
+        
+        .error
+        {
+            display:none;
+            font-weight: bold;
+			color: red;
+			padding: 2px 8px;
+			margin-top: 2px;
+        }
+        input, textarea {
+	        border:1px solid #cccccc;
+	        padding:7px 10px 7px 10px;
+	        font-size:14px;
+	        color:#000000;
+	        -webkit-border-radius:3px;
+	        -moz-border-radius:3px;
+	        border-radius:3px;
+	        font-family: 'Jura', Helvetica, Arial, Tahoma, sans-serif;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+	        font-family: 'Jura', Helvetica, Arial, Tahoma, sans-serif;
+	        margin-bottom:12px;
+	        font-weight:600;
+        }
+        
+        /* ================= 1. CSS Reset ================= */
+        html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, caption {
+	        margin:0;
+	        padding:0;
+	        border:0;
+	        outline:0;
+	        font-family: 'Jura', Helvetica, Arial, Tahoma, sans-serif;
+        }
+
+        .button {
+	        display: inline-block;
+	        outline: none;
+	        cursor: pointer;
+	        text-align: center;
+	        text-decoration: none;
+	        font: 14px/100% Arial, Helvetica, sans-serif;
+	        padding: .5em 2em .55em;
+	        text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	        -webkit-border-radius: .5em; 
+	        -moz-border-radius: .5em;
+	        border-radius: .5em;
+	        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	        -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	        box-shadow: 0 1px 2px rgba(0,0,0,.2);
+        }
+        .button:hover {
+	        text-decoration: none;
+        }
+        .button:active {
+	        position: relative;
+	        top: 1px;
+        }
+        
+        .orange {
+	        color: #fef4e9;
+	        border: solid 1px #da7c0c;
+	        background: #f78d1d;
+	        background: -webkit-gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
+	        background: -moz-linear-gradient(top,  #faa51a,  #f47a20);
+	        filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#faa51a', endColorstr='#f47a20');
+        }
+        .orange:hover {
+	        background: #f47c20;
+	        background: -webkit-gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
+	        background: -moz-linear-gradient(top,  #f88e11,  #f06015);
+	        filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f88e11', endColorstr='#f06015');
+        }
+        .orange:active {
+	        color: #fcd3a5;
+	        background: -webkit-gradient(linear, left top, left bottom, from(#f47a20), to(#faa51a));
+	        background: -moz-linear-gradient(top,  #f47a20,  #faa51a);
+	        filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f47a20', endColorstr='#faa51a');
+        }
+
+         .modal {
+            background-color:#fff;
+            display:none;
+            width:350px;
+            padding:15px;
+            text-align:left;
+            border:2px solid #333;
+            opacity:0.8;
+            -moz-border-radius:6px;
+            -webkit-border-radius:6px;
+            -moz-box-shadow: 0 0 50px #ccc;
+            -webkit-box-shadow: 0 0 50px #ccc;
+          }
  
-	<!-- Header -->
-	<header class="header_bg clearfix">
-		<div class="container clearfix">
-        	<!-- Social -->
-            	<ul class="social-links">
-                	<li ><a href="javascript:"><img src="images/facebook.png" alt="Facebook"></a></li>
-                    <li ><a href="javascript:"><img src="images/twitter.png" width="24" height="24" alt="Twitter"></a></li>
-                </ul>
-            <!-- /Social -->
-			 <!-- Logo -->
-			<div class="logo">
-				<a href="index.html"><img src="images/logo.png" alt="" /></a>
-			</div>
-			 <!-- /Logo -->
-			
-			<!-- Master Nav -->
-			<nav class="main-menu">
-				<ul>
-					<li><a href="index.html">Inicio</a></li>
-					<li><a href="plazas.html">Plazas</a>
-						<!--<ul>
-							<li><a href="elements.html">Elements</a></li>
-							<li><a href="typography.html">Typography</a></li>
-							<li><a href="blog_single.html">Blog Single Post</a></li>
-							
-							<li><a href="javascript:">Pricing</a>
-								<ul>
-									<li><a href="pricing_2_cols.html">Pricing 2 Cols</a></li>
-                                    <li><a href="pricing_3_cols.html">Pricing 3 Cols</a></li>
-                                    <li><a href="pricing_4_cols.html">Pricing 4 Cols</a></li>
-                                    <li><a href="pricing_5_cols.html">Pricing 5 Cols</a></li>
-									
-								</ul>
-							</li>
-                            
-                            <li><a href="full_width.html">Full Width</a></li>
-<li><a href="404.html">404 Page</a></li>
-						</ul>-->
-					</li>
-					<li><a href="obras.html">Obras en la ciudad</a>
-						<!--<ul>
-							<li><a href="portfolio_2_cols.html">Portfolio 2 Cols</a></li>
-							<li><a href="portfolio_3_cols.html">Portfolio 3 Cols</a></li>
-							<li><a href="portfolio_4_cols.html">Portfolio 4 Cols</a></li>
-							<li><a href="portfolio_details.html">Portfolio Details</a></li>
-						</ul>-->
-					</li>
-					<li><a href="sucursales.html">Sucursales</a></li>
-                    <li><a href="listapuntos.html">Lista de Puntos</a></li>
-                    <li><a href="insertapunto.html">Inserta Tu Punto</a></li>
-					<!--<li><a href="blog.html">Blog</a></li>-->
-					<li><a href="contacto.html">Contacto</a></li>
-				</ul>
-			</nav>
-			<!-- /Master Nav -->
-		</div>
-	</header>
-	<!-- /Header -->
-	
-	<div class="clear"></div>
-	
-	<!-- Slider -->
-    <div class="bannerbg">
-        <div class="container clearfix">
-                <div class="flexslider" >
-                <ul class="slides">
-                    <li>
-                        <img src="images/fslide01.png" alt="" />
-                        <p class="flex-caption"></p>
-                    </li>
-                    <li>
-                        <a href="#"><img src="images/fslide02.jpg" alt="" /></a>
-                    </li>
-                    <li>
-                        <img src="images/fslide03.jpg" alt="" />
-                        <p class="flex-caption"></p>
-                    </li>
-                    <li>
-                        <img src="images/fslide04.png" alt="" />
-                    </li>
-                    
-                    <li>
-                        <img src="images/fslide05.jpg" alt="" />
-                    </li>
-                    
-                    <li>
-                        <img src="images/fslide06.jpg" alt="" />
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-	<!-- /Slider -->
-	
-	<div class="clear padding40"></div>
+          .modal h2 {
+            background-color:Gray;
+            margin:0px;
+            padding:10px 0 10px 45px;
+            border-bottom:1px solid #333;
+            font-size:20px;
+          }
+  
+    </style>
 
-	
-	<!-- Content -->
-	<section class="container clearfix">
-	
-		<!-- START FEATURED COLUMNS -->
-		<div class="col_1_3">
-			<div class="features">
-				<div class="title clearfix">
-					<img src="images/code-icon.png" alt="" class="alignleft" />
-					<h3>Responsive Web Design</h3>
+    <script type="text/javascript">
 
-				</div>
-				<p>Este diseño, permite abrir esta pagina en cualquier tipo de dispositivo. </p>
-			</div>
-		</div>
-		<div class="col_1_3">
-			<div class="features">
-				<div class="title clearfix">
-					<img src="images/intuitive-icon.png" alt="" class="alignleft" />
-					<h3>Mapas a su medida</h3>
+        $(document).ready(function () {
 
-				</div>
-				<p>Sea conocido de una manera mas eficiente. </p>
-			</div>
-		</div>
-		<div class="col_1_3 last">
-			<div class="features">
-				<div class="title clearfix">
-					<img src="images/businesses-icon.png" alt="" class="alignleft" />
-					<h3>Darse a conocer</h3>
-					
-				</div>
-				<p>Haga que sus clientes/usuarios lo conozcan.</p>
-			</div>
-		</div>
-		<!-- END FEATURED COLUMNS -->
-		
-		<div class="clear padding10"></div>
-		
-	<!--	<div class="recent_works_left">
-			<h2 class="red">Featured Work</h2>
-		</div>
-		<div class="recent_works_arrows">
-			<a href="#" class="prev_item"></a><a href="#" class="next_item"></a>
-		</div>
-		
-		<div class="clear"></div>
-		<div class="line"></div>
-		<div class="clear padding30"></div>-->
-					
+            $('#form').validations();
+            
+            try {
+                $("body select").msDropDown();
+            } catch (e) {
+                alert(e.message);
+            }
 
-		<div class="recent_works" style="display:none">
-				<ul id="work">
-					<!-- START PORTFOLIO COLUMN #1 -->
-					<li id="id-1" class="app">
-						<span class="recent_image">
-							<a href="images/portfolio_large.jpg" data-rel="prettyPhoto" class="img-thumb"><img class="portfolio_image" src="images/featured_work_1.jpg" alt="" /></a>
-						</span>
-						<span class="title"><a href="portfolio_details.html">Open Source Icons</a></span>
-						
-						<span class="clear padding15"></span>
-					</li>
-					<!-- END PORTFOLIO COLUMN #1 -->
-					
-					<!-- START PORTFOLIO COLUMN #2 -->
-					<li id="id-2" class="util">
-						<span class="recent_image">
-							<a href="images/portfolio_large.jpg" data-rel="prettyPhoto" title="Free Admin Template from eGrappler.com"  class="img-thumb"><img class="portfolio_image" src="images/featured_work_2.jpg" alt="" /></a>
-						</span>
-						<span class="title"><a href="portfolio_details.html">Free Admin Template</a></span>
-						
-						<span class="clear padding15"></span>
-					</li>
-					<!-- END PORTFOLIO COLUMN #2 -->
-					
-					<!-- START PORTFOLIO COLUMN #3 -->
-					<li id="id-3" class="app">
-						<span class="recent_image">
-							<a href="images/portfolio_large.jpg" data-rel="prettyPhoto" title="Free Social Plugin" class="img-thumb"><img class="portfolio_image" src="images/featured_work_3.jpg" alt="" /></a>
-						</span>
-						<span class="title"><a href="portfolio_details.html">Free Social Plugin</a></span>
-						
-						<span class="clear padding15"></span>
-					</li>
-					<!-- END PORTFOLIO COLUMN #3 -->
-					
-					<!-- START PORTFOLIO COLUMN #3 -->
-					<li id="id-4" class="app">
-						<span class="recent_image">
-							<a href="images/portfolio_large.jpg" data-rel="prettyPhoto" class="img-thumb"><img class="portfolio_image" src="images/portfolio_image_4.jpg" alt="" /></a>
-						</span>
-						<span class="title"><a href="portfolio_details.html">Desing Freebies</a></span>
-						
-						<span class="clear padding15"></span>
-					</li>
-					<!-- END PORTFOLIO COLUMN #3 -->
-					
-					<!-- START PORTFOLIO COLUMN #3 -->
-					<li id="id-5" class="app">
-						<span class="recent_image">
-							<a href="images/portfolio_large.jpg" data-rel="prettyPhoto" class="img-thumb"><img class="portfolio_image" src="images/portfolio_image_5.jpg" alt="" /></a>
-						</span>
-						<span class="title"><a href="portfolio_details.html">Free WordPress Resume Theme</a></span>
-						
-						<span class="clear padding15"></span>
-					</li>
-					<!-- END PORTFOLIO COLUMN #3 -->
-					
-					<!-- START PORTFOLIO COLUMN #3 -->
-					<li id="id-6" class="app">
-						<span class="recent_image">
-							<a href="images/portfolio_large.jpg" data-rel="prettyPhoto" class="img-thumb"><img class="portfolio_image" src="images/portfolio_image_6.jpg" alt="" /></a>
-						</span>
-						<span class="title"><a href="portfolio_details.html">jQuery Pagination Plugin</a></span>
-						
-						<span class="clear padding15"></span>
-					</li>
-					<!-- END PORTFOLIO COLUMN #3 -->
-					
-					<!-- START PORTFOLIO COLUMN #3 -->
-					<li id="id-7" class="app">
-						<span class="recent_image">
-							<a href="images/portfolio_large.jpg" data-rel="prettyPhoto" class="img-thumb"><img class="portfolio_image" src="images/portfolio_image_7.jpg" alt="" /></a>
-						</span>
-						<span class="title"><a href="portfolio_details.html">Clean Business HTML Template</a></span>
-						
-						<span class="clear padding15"></span>
-					</li>
-					<!-- END PORTFOLIO COLUMN #3 -->
-				</ul>
-			</div>
-		
-	</section>
-	<!-- /Content -->
-		
-	
-	
-	<section class="homepage_widgets_bg clearfix">
-		<div class="container clearfix">
-		
-			<div class="padding20"></div>
-			
-            
-            <!-- START COL 1/2 -->
-			<div class="col_1_2 ">
-				<h1 class="regular white bottom_line">Nostros</h1>
-				<p>Acerca de Nosotros...</p> 
+            $(".slideOption1").hide();
+            $(".slideOption2").hide();
+            $(".slideOption3").hide();
+            $(".slideFormaPago").hide();
+            $("#txtOtra").hide();
+            $("#lnkPaypal").show();
 
-				<p>Empresa dedicada a la publicidad online. </p>
-				
-			</div>
-			<!-- END COL 1/2 -->
-            
-			<!-- START COL 1/2 -->
-            
-           
-           <div class="col_1_2 last" id="why-section">
-				<h1 class="regular white bottom_line">¿Por Qúe Nosotros?</h1>
-				<div><a href="#"><img class="alignleft MT0" id="why1" src="images/content-img1.png" alt="img" ></a></div>
-				<p>
-					Somos la diferencia.
-				</p>
-                
-                <div class="clear padding10"></div>
-                
-                <div><a href="#"><img class="alignleft MT0" id="why2" src="images/content-img2.png" alt="img" ></a></div>
-				<p>
-					Informacion 100% Actualizada
-				</p>
-                 <div class="clear padding10"></div>
-                 
-                <div><a href="#"><img class="alignleft MT0" id="why3" src="images/content-img3.png" alt="img" ></a></div>
-				<p>
-					Nos adaptamos a sus necesidades. 
-				</p>
-                
-                
-			</div>
-           <div class="clear padding10"></div>
-			
-			<!-- end col 1/2 -->
-			
-			
-            
-            <!-- start col -->
-            
-            <!--	<div>
-                
-                <h2 class="regular white bottom_line">All-in-one Template</h2>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus convallis urna a enim convallis a bibendum lectus scelerisque. Aenean at mauris augue, sed fringilla justo. Proin et porta ligula. </p>
-				<div class="clearfix">
-					
-					<a href="javascript:" class="green-button">Buy This Template</a>
-				</div>
-                
-                </div>-->
-            
-            <!-- emd col -->
-            
-			<div class="clear padding80"></div>
-			
-		</div>
-	</section>
-		
-	
-	<!-- footer -->
-	<footer class="footer_bg_bottom clearfix">
-		<div class="footer_bottom container">
-			<div class="col_2_3">
-				
-				<!--<div class="menu">
-					<ul>
-						<li><a href="index.html">Home</a></li>
-                        <li><a href="elements.html">Elements</a></li>
-						<li><a href="portfolio_4_cols.html">Portfolio</a></li>
-						<li><a href="pricing_5_cols.html">Pricing</a></li>
-						<li><a href="blog.html">Blog</a></li>
-						<li><a href="contact.html">Contact</a></li>
-					</ul>
-				</div>
-				-->
-				
-				<div class="clear padding20"></div>
-				<p>&copy; CopyRight 2012. &nbsp; <a href="#">Terminos y Condiciones</a></p>
-				
-			</div>
-			
-			<div class="clear padding20"></div>
-		</div>
-	</footer>
-	
+            $("#lnkPaypal").click(Actualizar);
+            $("#lnkConfirmar").click(Actualizar);
+            $('#ddlHow').change(function () {
+                $("#txtOtra").hide()
+                if ($('#ddlHow').val() == "10")
+                    $("#txtOtra").show();
+            });
+
+            $('#ddlFormaPago').change(function () {
+
+                if ($('#ddlFormaPago').val() == "1") {
+                    $('#lnkConfirmar').hide();
+                    $('#lnkPaypal').show();
+                }
+                else {
+                    $('#lnkConfirmar').show();
+                    $('#lnkPaypal').hide();
+
+                }
+            });
+
+            $('#registro').click(function () {
+
+
+                if (!$("#chkTerminos").is(':checked')) {
+                    alert('Para continuar tienes que aceptar los términos y condiciones.');
+                    return;
+                }
+
+                $(".slideForm").hide();
+                $(".slideFormaPago").hide();
+                $(".slideOption1").slideToggle();
+                $('#divComprar').append("<a href=\"#pago\" id=\"comprar\" class=\"button orange\">Comprar curso (USD $850.00)</a>&nbsp;&nbsp;");
+                $('#divComprar').append("<a href=\"#pago\" id=\"apartar\" class=\"button orange\">Apartar mi lugar (USD $199.00)</a>");
+                var target_offset = $("#pago").offset();
+
+                $('#comprar').click(function () {
+                    $(".slideForm").hide();
+                    $(".slideOption1").hide();
+                    $(".slideFormaPago").slideToggle();
+
+                    var target_offset = $("#pago").offset();
+
+                    $('#tiporegistro').val("1");
+                });
+
+                $('#apartar').click(function () {
+
+                    $(".slideForm").hide();
+                    $(".slideOption1").hide();
+                    $(".slideFormaPago").slideToggle();
+
+                    var target_offset = $("#pago").offset();
+
+                    $('#tiporegistro').val("2");
+                });
+
+                Guardar();
+
+            });
+
+            function Actualizar() {
+
+                $().waitingpopup();
+                $().waitingpopup('open');
+
+                $.ajax({
+                    url: "http://demows.cgpreceptor.com/GPService.asmx/actualizarRegistro",
+                    //                 url: "http://localhost:7924/GPService.asmx/actualizarRegistro",
+                    data: "idRegistro=" + idRegistro.value + "&formapago=" + ddlFormaPago.value + "&totalAPagar=0&apartado=" + tiporegistro.value
+                    + "&montoApartado=0",
+                    dataType: "jsonp",
+                    async: false,
+                    crossDomain: true,
+                    success: function (response) {
+
+                        $.each(response, function (index, p) {
+
+                            if (p.Id == "paypal") {
+                                window.top.location.replace(p.Descripcion);
+                            }
+                            else {
+                                window.top.location.replace(p.Descripcion);
+                            }
+
+                        });
+
+                    },
+                    error: function (msg) {
+                        alert('Ocurrio un error, contacta al administrador.');
+                        $().waitingpopup('close');
+
+                    },
+                    failure: function (msg) {
+                        alert('Ocurrio un error, contacta al administrador.');
+                        $().waitingpopup('close');
+                    }
+                });
+            }
+
+            function Guardar() {
+
+                $().waitingpopup();
+                $().waitingpopup('open');
+
+                $.ajax({
+                    url: "http://demows.cgpreceptor.com/GPService.asmx/insertaRegistro",
+                    //                 url: "http://localhost:7924/GPService.asmx/insertaRegistro",
+                    data: "nombre=" + txtNombre.value + "&apellidos=" + txtApellidos.value + "&company=" + txtCompany.value + "&direccion=" + txtDireccion.value
+                    + "&ciudad=" + txtCiudad.value + "&telefono=" + txtTelefono.value + "&mail=" + txtMail.value + "&pais=" + ddlPais.value
+                    + "&how=" + ddlHow.value + "&formapago=" + ddlFormaPago.value + "&idcurso=" + ddlCursos.value + "&tiporeg=" + tiporegistro.value + "&monto=0"
+                    + "&totalpagar=0" + "&otrohow=" + txtOtra.value,
+                    dataType: "jsonp",
+                    async: false,
+                    crossDomain: true,
+                    success: function (response) {
+
+                        $.each(response, function (index, p) {
+
+                            $('#idRegistro').val(p.Id);
+
+                        });
+
+                        $().waitingpopup('close');
+                    },
+                    error: function (msg) {
+                        $().waitingpopup('close');
+                        console.log('someerror');
+                    },
+                    failure: function (msg) {
+                        $().waitingpopup('close');
+                        alert(msg);
+                    }
+                });
+            }
+
+            function ObtenerPaises() {
+
+                $().waitingpopup();
+                $().waitingpopup('open');
+
+                $.ajax({
+                    url: "http://demows.cgpreceptor.com/GPService.asmx/ObtienePaises",
+                    dataType: "jsonp",
+                    async: true,
+                    crossDomain: true,
+                    success: function (response) {
+
+                        var oDD = $('#ddlPais').msDropDown().data("dd");
+                        oDD.add({ text: '[Selecciona un país]', value: '0', selected: 'selected' });
+
+                        $.each(response, function (index, p) {
+                            oDD.add({ text: p.Descripcion, value: p.IdPais });
+                        });
+
+                        $('#ddlPais').msDropDown().data('dd').set('selectedIndex', 0);
+
+
+                        $().waitingpopup('close');
+
+                    },
+                    error: function (msg) {
+                        $().waitingpopup('close');
+                        console.log('someerror');
+                    },
+                    failure: function (msg) {
+                        $().waitingpopup('close');
+                        alert(msg);
+                    }
+                });
+
+
+
+            }
+
+            function ObtieneCursos() {
+
+                $.ajax({
+                    url: "http://demows.cgpreceptor.com/GPService.asmx/ObtieneCursos",
+                    dataType: "jsonp",
+                    async: true,
+                    crossDomain: true,
+                    success: function (response) {
+
+                        var oDD = $('#ddlCursos').msDropDown().data("dd");
+                        oDD.add({ text: '[Selecciona un curso]', value: '0' });
+
+                        $.each(response, function (index, p) {
+                            var num = parseFloat(p.Costo);
+                            oDD.add({ text: p.Descripcion + ' $' + num.toFixed(2), value: p.IdCursoConnect });
+                        });
+
+                        $('#ddlCursos').msDropDown().data('dd').set('selectedIndex', 0);
+
+                    },
+                    error: function (msg) {
+                        console.log('someerror');
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    }
+
+                });
+
+            }
+
+            function dummyData() {
+                $('#txtNombre').val("alejandro");
+                $('#txtApellidos').val("rosales");
+                $('#txtMail').val("arosales@dotnet.com.mx");
+                $('#txtCompany').val("come company");
+                $('#txtDireccion').val("some address");
+                $('#txtTelefono').val("99999999");
+                $('#txtCiudad').val("ciudad");
+            }
+
+            ObtenerPaises();
+            ObtieneCursos();
+            //dummyData();
+
+        });
+
+</script>
+</head>
+<body>  
+    <div id="form">                
+        <table rules="none" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:transparent;margin-right:20px">
+              <tr>
+                <td>
+                   <div class="slideForm" id="slideForm" style="display: block;">
+                    <table>
+                          <tr>
+                                <td align="left" style="width:270px;" >
+                                    Nombre:
+                                </td>
+                                <td align="left" style="width:200px;" >
+                                    <input data-validate-presence="true" data-validate-error="#validation1" type="text" name="txtNombre" id="txtNombre" 
+                                    class="input-xlarge" >
+                                </td>
+                                <td align="left">
+                                    <div class="error" id="validation1">Campo requerido.</div>
+                                </td>
+                          </tr>
+                         <tr> 
+                    <td align="left">
+                        Apellidos: </td>
+                         <td align="left" >
+                                <input data-validate-presence="true" data-validate-error="#validation2" type="text" name="txtApellidos" id="txtApellidos" 
+                                    class="input-xlarge" >
+                        </td>
+                        <td align="left">
+                            <div class="error" id="validation2">Campo requerido.</div>
+                        </td>
+                </tr>
+                <tr>
+                    <td align="left">
+                        Mail: 
+                    </td>
+                    <td align="left" >
+                        <input type="text" name="txtMail" id="txtMail" 
+                                    class="input-xlarge" data-valdiate-presence="true" data-validate-email="true" 
+                                    data-validate-error="#email" data-validate-failed="true">
+                    </td>
+                    <td align="left">
+                        <div class="error email-error" id="email">Escribe un mail válido.</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" >
+                        Compañia: 
+                    </td>
+                    <td align="left" >
+                        <input id="txtCompany" name="txtCompany" class="input-xlarge" type="text" value="" size="25" />
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>   
+                     <td align="left">
+                        Dirección: 
+                     </td>
+                     <td align="left" >
+                        <input id="txtDireccion" name="txtDireccion" class="input-xlarge" type="text"  data-validate-presence="true" data-validate-error="#validationdir" />
+                    </td>
+                    <td align="left">
+                            <div class="error" id="validationdir">Campo requerido.</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">
+                        Teléfono: 
+                    </td>
+                    <td align="left" >
+                        <input id="txtTelefono" name="txtTelefono" class="input-xlarge" type="text" data-validate-presence="true" data-validate-error="#validationtel" />
+                    </td>
+                     <td align="left">
+                       <div class="error" id="validationtel">Campo requerido.</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left">
+                        Ciudad:
+                    </td>
+                    <td align="left" >
+                          <input id="txtCiudad" name="txtCiudad" class="input-xlarge" type="text" data-validate-presence="true" data-validate-error="#validationcd" />
+                    </td>
+                     <td align="left">
+                       <div class="error" id="validationcd">Campo requerido.</div>
+                    </td>
+                </tr>
+                <tr>
+                     <td align="left">
+                         País: 
+                     </td>
+                     <td align="left" >
+                         <select name="ddlPais" id="ddlPais" style="width:250px" data-validate-selected="2,*" data-validate-error=".country-error" >
+                          </select>
+                     </td>
+                     <td>
+                        <div class="error country-error selected-error">Selecciona un país.</div>
+                     </td>
+                </tr>
+                <tr>
+                    <td align="left" valign="top" >
+                        ¿Como te enteraste de nosotros? 
+                    </td>
+                    <td align="left" >
+                        <select name="ddlHow" id="ddlHow" style="width:250px" data-validate-selected="2,*" data-validate-error=".how-error" >
+                                <option value="0">[Selecciona una opción]</option>
+                                <option value="1">Facebook</option>
+                                <option value="2">Twitter</option>
+                                <option value="3">Google</option>
+                                <option value="4">Yahoo</option>
+                                <option value="5">Radio</option>
+                                <option value="6">3dTotal</option>
+                                <option value="7">DeathFall</option>
+                                <option value="8">Portal de Internet</option>
+                                <option value="9">Conferencia</option>
+                                <option value="10">Otra</option>
+                            </select>
+                          <input type="text" value="" id="txtOtra" size="25" />
+                    </td>
+                    <td>
+                        <div class="error how-error selected-error">Selecciona una opción.</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="left" valign="top" >
+                        ¿En que curso estás interesado? 
+                    </td>
+                    <td align="left" >
+                          <select name="ddlCursos" id="ddlCursos" style="width:400px" 
+                          data-validate-selected="2,*" data-validate-error=".course-error" >
+                          </select>
+                    </td>
+                    <td>
+                        <div class="error course-error selected-error">Selecciona un curso.</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td align="left" valign="top"><br />
+                        <input type="checkbox" name="membership[feature]" value="brochure" 
+                        data-validate-checked="1,*" data-validate-error=".feature-error" data-validate-failed="true" id="chkTerminos">
+                            <a href="http://cgpreceptor.com/terminos.html" target="_blank">Términos y Condiciones</a> 
+                        <br />
+                    </td>
+                    <td valign="top">
+                        <div class="error feature-error checked-error" style="display: none;">Debes aceptar los términos y condiciones.</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td align="left" colspan="2">
+                       <br />
+                        <a href="#pago" id="registro" data-validate="#form" class="button orange">Enviar datos</a><br /><br />
+                        Al enviar tus datos podras apartar/comprar tu curso.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    </td>
+                    <td colspan="2">
+                        <div style="vertical-align:middle;"><br />
+                            <img alt="ayuda" width="24px" height="24px" src="images/info.png" />¿Tienes pregunta o dudas? Estamos para ayudarte <a href="mailto:info@cgpreceptor.com">info@cgpreceptor.com</a>
+                        </div>
+                    </td>
+                </tr>
+                    </table>
+                 </div>
+                </td>
+              </tr>
+             <tr>
+                 <td colspan="2">
+                <div class="slideOption1" id="slideOption1" style="display: none;">
+                    <br /><br />
+                        Muchisimas gracias wey!<br /><br />
+                        Ahora tienes la oportunidad de comprar ó apartar el curso<br /><br />
+                        ¿Que deseas hacer?<br /><br />
+                        <div id="divComprar">
+
+                        </div>
+                        <br /><br />                      
+                </div>
+                <div class="slideFormaPago" id="slideFormaPago" style="display:none;">
+                    Forma de Pago: &nbsp;&nbsp;
+                    <select name="ddlFormaPago" id="ddlFormaPago" style="width:200px">
+                        <option value="1">Paypal</option>
+                        <option value="2">Depósito en Efectivo</option>
+                        <option value="3">Wire Transfer</option>
+                        <option value="4">Western Union</option>
+                        </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="#pago" id="lnkConfirmar" class="button orange" style="display:none;">Confirmar Orden</a>
+                        <a href="#pago" id="lnkPaypal" class="button orange" style="display:none;">Pasar a pagar</a>
+                             
+                </div>
+            </td>
+        </tr>
+    </table>
+        <input type="hidden" id="tiporegistro" />
+        <input type="hidden" id="idRegistro" />
+     </div>
 </body>
 </html>

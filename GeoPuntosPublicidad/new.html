@@ -86,141 +86,190 @@
      $(document).ready(function () {
 
 
-         var myOptions;
-         var geocoder;
-         var infoWindow = new google.maps.InfoWindow;
-         var markersArray = [];
-         var latlng;
-
-         if (navigator.geolocation) {
-             navigator.geolocation.getCurrentPosition(success, error);
-         } else {
-             error('msg');
-         }
-
-         function error(msg) {
-             alert('no te haye');
-
-             latlng = new google.maps.LatLng(21.879341, -102.287032);
-
-             myOptions = {
-                 zoom: 5,
-                 center: latlng,
-                 mapTypeId: google.maps.MapTypeId.ROADMAP,
-                 zoomControlOptions: {
-                     style: google.maps.ZoomControlStyle.SMALL
-                 }
-             };
-
-             var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-             getMarkersWS(map);
-
-         }
-
-         function success(position) {
-             alert('ya te encontré');
-
-             latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-             myOptions = {
-                 zoom: 15,
-                 center: latlng,
-                 mapTypeControl: false,
-                 navigationControlOptions: { style: google.maps.NavigationControlStyle.SMALL },
-                 mapTypeId: google.maps.MapTypeId.ROADMAP
-             };
-
-             var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-             getMarkersWS(map);
-
-             var marker1 = new google.maps.Marker({
-                 position: latlng,
-                 map: map,
-                 title: "Ya te encontré, eso creo, con una punteria de mas o menos " + position.coords.accuracy + " metros)"
-             });
-         }
-
+         
        
+         function visualizarMapa() {
 
-         function getMarkersWS(map) {
-
-             $.ajax({
-                 type: "POST",
-                 url: "datos.asmx/ObtienePuntosGuardados",
-                 contentType: "application/json; charset=utf-8",
-                 data: "{'tipoDemo':'Lista'}",
-                 dataType: "json",
-                 success: function (response) {
-                     var puntos = response.d;
+             var myOptions;
+             var geocoder;
+             var infoWindow = new google.maps.InfoWindow;
+             var markersArray = [];
+             var latlng;
 
 
-                     $.each(puntos, function (index, p) {
+            if (document.getElementById("maploaded").value == "1")
+                return;
 
-                         var point = new google.maps.LatLng(p.Latitud, p.Longitud);
+                document.getElementById("maploaded").value = "1";
+                
+             if (navigator.geolocation) {
+                 navigator.geolocation.getCurrentPosition(success, error);
+             } else {
+                 error('msg');
+             }
 
-                         var image = "";
+             function error(msg) {
 
-                         image = 'images/' + p.Icono + ".png";
+                 latlng = new google.maps.LatLng(21.879341, -102.287032);
 
-                         var marker = new google.maps.Marker({
-                             map: map,
-                             position: point,
-                             icon: image,
-                             title: p.Titulo
+                 myOptions = {
+                     zoom: 5,
+                     center: latlng,
+                     mapTypeId: google.maps.MapTypeId.ROADMAP,
+                     navigationControlOptions: {style: 'SMALL',position: 'TOP_RIGHT'}
+                 };
+
+                 var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+                 getMarkersWS(map);
+
+             }
+
+             function success(position) {
+
+                 latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+                 google.maps.visualRefresh = true;
+
+                 var myOptions = {
+                        zoom: 15,
+                        center: latlng,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP,
+                        mapTypeControl: true, 
+                        disableDefaultUI: false,
+                        navigationControl:true,
+                        keyboardShortcuts: false,
+                        streetViewControl: true
+                        
+                 };
+                 
+                 var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+                 
+                 getMarkersWS(map);
+
+                 var marker1 = new google.maps.Marker({
+                     position: latlng,
+                     map: map,
+                     title: "Ya te encontré, eso creo, con una punteria de mas o menos " + position.coords.accuracy + " metros)"
+                 });
+             }
+
+             function getMarkersWS(map) {
+
+                 $.ajax({
+                     url: "http://demows.cgpreceptor.com/GPService.asmx/ObtienePuntosGuardadosLL",
+                     data: "tipoPunto=Lista",
+                     dataType: "jsonp",
+                     async: false,
+                     crossDomain: true,
+                     success: function (response) {
+                         $.each(response, function (index, p) {
+                             
+                             var point = new google.maps.LatLng(p.Latitud, p.Longitud);
+                             var image = "";
+                             image = 'images/' + p.Icono + ".png";
+
+                             var marker = new google.maps.Marker({
+                                 map: map,
+                                 position: point,
+                                 icon: image,
+                                 title: p.Titulo
+                             });
+
+                             var html = "<div class='infowin'><b>" + p.Titulo + "</b><br><i> " + p.Subtitulo + "</i><hr>";
+                             html += "Descripción: " + p.Descripcion + "<br />";
+                             html += "Característica: " + p.Caracteristica + "<br /></div>";
+
+                             //binds the infoWindow to the point
+                             bindInfoWindow(marker, map, infoWindow, html, image, "alejandro");
+
+                             google.maps.event.addListener(map, "click", function () {
+                                 infoWindow.close();
+                             });
+
+                             markersArray.push(marker);
+
                          });
 
-                         var html = "<div class='infowin'><b>" + p.Titulo + "</b><br><i> " + p.Subtitulo + "</i><hr>";
-                         html = html + "Descripción: " + p.Descripcion + "<br />";
-                         html = html + "Característica: " + p.Caracteristica + "<br /></div>";
+                     },
 
-                         //binds the infoWindow to the point
-                         bindInfoWindow(marker, map, infoWindow, html, image);
+                     failure: function (msg) {
+                         alert(msg);
+                     }
 
-                         google.maps.event.addListener(map, "click", function () {
-                             infoWindow.close();
-                         });
+                 });
+             } 
 
-                         markersArray.push(marker);
 
+             function bindInfoWindow(marker, map, infoWindow, html, icon, info) {
+
+
+                 google.maps.event.addListener(marker, 'mouseover', function () {
+                     infoWindow.setContent(html);
+                     infoWindow.open(map, marker);
+                     marker.setIcon(icon);
+                 });
+
+
+
+                 google.maps.event.addListener(marker, 'mouseout', function () {
+                     infoWindow.close();
+                     marker.setIcon(icon);
+                 });
+
+                 google.maps.event.addListener(marker, 'click', function () {
+
+                     $.fancybox.open({
+                         href: 'lugar.htm?html=' + info,
+                         type: 'iframe',
+                     
                      });
 
-                 },
+                 });
 
-                 failure: function (msg) {
-                     alert(msg);
-                 }
-
-             }); //fin llamada ajax
-         } //fin funcion getMarkersWS
-
-
-         function bindInfoWindow(marker, map, infoWindow, html, icon) {
-             google.maps.event.addListener(marker, 'mouseover', function () {
-                 infoWindow.setContent(html);
-                 infoWindow.open(map, marker);
-                 marker.setIcon(icon);
-             });
-             google.maps.event.addListener(marker, 'mouseout', function () {
-                 infoWindow.close();
-                 marker.setIcon(icon);
-             });
+             }
          }
 
          $("#li-nosotros").click(function () {
-             $.fancybox.open({
-                 href: 'blog.html',
-                 type: 'iframe',
-                 padding: 5
-             });
+//             $.fancybox.open({
+//                 href: 'blog.html',
+//                 type: 'iframe',
+//                 padding: 5
+//             });
+             $("#map_canvas").hide();
+             $("#mapoptions").hide();
+             $("#contacto").hide();
+             $("#nosotros").fadeIn();
+             
          });
 
          $("#li-contacto").click(function () {
-             $.fancybox.open({
-                 href: 'contact.html',
-                 type: 'iframe',
-                 padding: 5
-             });
+//             $.fancybox.open({
+//                 href: 'contact.html',
+//                 type: 'iframe',
+//                 padding: 5
+//             });
+             $("#map_canvas").hide();
+             $("#mapoptions").hide();
+             $("#nosotros").hide();
+             $("#contacto").fadeIn();
+
          });
+
+         
+         $("#li-mapa").click(function () {
+             $("#nosotros").hide();
+             $("#contacto").hide();
+             $("#map_canvas").fadeIn();
+             $("#mapoptions").fadeIn();
+             visualizarMapa();
+         });
+
+         
+
+         $("#map_canvas").hide();
+         $("#mapoptions").hide();
+         $("#contacto").hide();
+         $("#nosotros").fadeIn();
 
      });
 </script>
@@ -230,11 +279,8 @@
 
              <div class="lavalamp orange">
                 <ul >
-                    <li class="active"><a href="">Nosotros</a></li>
-                    <li><a href="">Opcion2</a></li>
-                    <li><a href="">Opcion3</a></li>
-                    <li><a href="">Opcion4</a></li>
-                    <li><a id="li-nosotros" href="javascript:;">Popup</a></li>
+                    <li class="active"><a id="li-nosotros" href="javascript:;">Nosotros</a></li>
+                    <li><a id="li-mapa" href="javascript:;">Ver Mapa</a></li> 
                     <li><a id="li-contacto" href="javascript:;">Contacto</a></li>
                 </ul>
                 <div class="floatr"></div>
@@ -249,18 +295,24 @@
             <br />
             
             <div class="lavalampIn orange">
+                
                 <div id="map_canvas" class="map_canvas" style="float:left;"></div>
-                
-                <div class="lavalampFilters yellow" >
-                    <div><input type="checkbox" value="casa" name="casa" />Casas</div>
-                    <div><input type="checkbox" value="casa" name="casa" />Departamentos</div>
-                    <div><input type="checkbox" value="casa" name="casa" />Estudios</div>
-                    <div><input type="checkbox" value="casa" name="casa" />Comercios</div>
+                <div id="mapoptions" class="lavalampFilters yellow" >
+                    <div><input type="checkbox" value="searchby1" name="option 1" />Casas</div>
+                    <div><input type="checkbox" value="searchby2" name="option 2" />Departamentos</div>
+                    <div><input type="checkbox" value="searchby3" name="option 3" />Estudios</div>
+                    <div><input type="checkbox" value="searchby4" name="option 4" />Comercios</div>
                 </div>
-                
+                <div id="nosotros" >
+                    something about us
+                </div>
+                <div id="contacto" >
+                    contacto
+                </div>
             </div>
             
            
         </div>
+        <input type="hidden" id="maploaded" value="0" />
 </body>
 </html>

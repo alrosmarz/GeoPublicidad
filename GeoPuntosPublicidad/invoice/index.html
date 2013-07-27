@@ -1,0 +1,65 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Gracias por tu compra</title>
+
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/base/jquery-ui.css" rel="Stylesheet" />
+    
+     <script language="javascript">
+         $(document).ready(function (e) {
+
+             function getUrlVars() {
+                 var vars = [], hash;
+                 var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                 for (var i = 0; i < hashes.length; i++) {
+                     hash = hashes[i].split('=');
+                     vars.push(hash[0]);
+                     vars[hash[0]] = hash[1];
+                 }
+                 return vars;
+             }
+
+             function obtieneRegistro() {
+
+                 var id = getUrlVars()["id"].toString();
+
+                 $.ajax({
+                     url: "http://demows.cgpreceptor.com/GPService.asmx/obtieneRegistro",
+//                     url: "http://localhost:7924/GPService.asmx/obtieneRegistro",
+                     data: "id=" + id,
+                     dataType: "jsonp",
+                     async: false,
+                     crossDomain: true,
+                     success: function (response) {
+
+                         $.each(response, function (index, p) {
+
+                             $('#divInvoice').append(p.Email);
+
+                         });
+
+                     },
+                     error: function (msg) {
+                         console.log('someerror');
+                     },
+                     failure: function (msg) {
+                         alert(msg);
+                     }
+                 });
+             }
+
+             obtieneRegistro();
+
+         });
+    </script>
+
+</head>
+<body>
+
+    <div id="divInvoice">
+    </div>
+
+</body>
+</html>

@@ -7,7 +7,7 @@
 <!--<![endif]-->
 <head>
     <meta charset="ISO-8859-1">
-    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+    
     <title>Prototipo - Lista Generica</title>
     <meta name="description" content="" />
     <meta name="keywords" content="" />
@@ -188,22 +188,20 @@ $(window).load(function(){
 
          getMarkersWS(map);
 
+
          function getMarkersWS(map) {
 
              $.ajax({
-                 type: "POST",
-                 url: "datos.asmx/ObtienePuntosGuardados",
-                 contentType: "application/json; charset=utf-8",
-                 data: "{'tipoDemo':'Lista'}",
-                 dataType: "json",
+                 type: "GET",
+                 url: "http://demows.cgpreceptor.com/GPService.asmx/ObtienePuntosGuardadosLL",
+                 data: "tipoPunto=Lista",
+                 dataType: "jsonp",
+                 async: false,
+                 crossDomain: true,
                  success: function (response) {
-                     var puntos = response.d;
-
                      var contador = 0;
-
                      var tablaListado = '';
-
-                     $.each(puntos, function (index, p) {
+                     $.each(response, function (index, p) {
 
                          var point = new google.maps.LatLng(p.Latitud, p.Longitud);
 
@@ -312,8 +310,11 @@ $(window).load(function(){
 
                      });
                  },
-
+                 error: function (jqXHR, textStatus, errorThrown) {
+                     console.log("Error... " + textStatus + "        " + errorThrown);
+                 },
                  failure: function (msg) {
+                     console.log('error');
                      alert(msg);
                  }
 
