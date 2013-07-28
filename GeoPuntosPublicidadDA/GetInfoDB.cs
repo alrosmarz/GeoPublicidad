@@ -25,7 +25,7 @@ namespace GeoPuntosPublicidadDA
         protected string URL = "";
         protected string request_id = "";
         protected string rm;
-        protected string lunarPages = "0";
+        protected string lunarPages = "1";
 
         //public bool InsertaPuntoDanos(string contacto, string calle, string numero, string colonia, string cp, string comentarios, string estatus, string exclusividad, string fechatermino, string latitud, string longitud, string imagen)
         //{
@@ -187,24 +187,31 @@ namespace GeoPuntosPublicidadDA
                 conexion.Open();
                 comando.Connection = conexion;
                 comando.CommandType = CommandType.Text;
-                comando.CommandText = "INSERT INTO dbo.RegistroCMS	" + 
+                comando.CommandText = "INSERT INTO dbo.RegistroCMS	" +
                     "(	Nombre,	Apellidos,	Company,	Direccion,	IdCurso,	Email,	Telefono,	Ciudad,	Pais,	How,	FechaRegistro, " +
-                    " TotalPagar,	TipoRegistro,	MontoApartado,	FormaPago,	Activo	, OtroHow, AltID) " + 
-                    " VALUES " + 
+                    " TotalPagar,	TipoRegistro,	MontoApartado,	FormaPago,	Activo	, OtroHow, AltID) " +
+                    " VALUES " +
                     " (@nombre,@apellidos,@company,@direccion,@idcurso,@email,@telefono,@ciudad,@pais,@how,getdate(),@totalpagar," +
-                    " @tiporeg,@montoapartado,@formapago,@activo,@otrohow,@guid); " + 
+                    " @tiporeg,@montoapartado,@formapago,@activo,@otrohow,@guid); " +
                     " select max(IdRegistro) from dbo.RegistroCMS; ";
 
+                SqlCommand getCost = new SqlCommand();
+                getCost.CommandType = CommandType.Text;
+                getCost.CommandText = "select isnull(costo,0) from dbo.CursosConnect where IdConnect = '" + idcurso + "'";
+                getCost.Connection = conexion;
 
-                //SqlCommand getCost = new SqlCommand("select costo from CursosConnect where IdConnect = " + idcurso, conexion);
-                //decimal costoCurso = decimal.Parse(getCost.ExecuteScalar().ToString());
-                decimal costoCurso = 850;
-                
+                decimal costoCurso = 0;
+
+                if (lunarPages == "1")
+                    costoCurso = decimal.Parse(getCost.ExecuteScalar().ToString());
+                else
+                    costoCurso = 850;
+
                 comando.Parameters.Add(new SqlParameter("@nombre", nombre));
                 comando.Parameters.Add(new SqlParameter("@apellidos", apellidos));
                 comando.Parameters.Add(new SqlParameter("@company", company));
                 comando.Parameters.Add(new SqlParameter("@direccion", direccion));
-                comando.Parameters.Add(new SqlParameter("@idcurso", idcurso));                
+                comando.Parameters.Add(new SqlParameter("@idcurso", idcurso));
                 comando.Parameters.Add(new SqlParameter("@email", mail));
                 comando.Parameters.Add(new SqlParameter("@telefono", telefono));
                 comando.Parameters.Add(new SqlParameter("@ciudad", ciudad));
@@ -230,8 +237,8 @@ namespace GeoPuntosPublicidadDA
             catch (Exception ex)
             {
                 RespuestaBE r = new RespuestaBE();
-                r.Id = "0";
-                r.Descripcion = "Ocurrio un error al registrarte, contacta al administrador.";
+                r.Id = ex.Message.ToString();
+                r.Descripcion = ex.StackTrace.ToString();
                 lista.Add(r);
                 return lista;
             }

@@ -136,7 +136,7 @@
         $(document).ready(function () {
 
             $('#form').validations();
-            
+
             try {
                 $("body select").msDropDown();
             } catch (e) {
@@ -147,11 +147,13 @@
             $(".slideOption2").hide();
             $(".slideOption3").hide();
             $(".slideFormaPago").hide();
+            $(".slideGracias").hide();
             $("#txtOtra").hide();
             $("#lnkPaypal").show();
 
             $("#lnkPaypal").click(Actualizar);
             $("#lnkConfirmar").click(Actualizar);
+
             $('#ddlHow').change(function () {
                 $("#txtOtra").hide()
                 if ($('#ddlHow').val() == "10")
@@ -182,8 +184,9 @@
                 $(".slideForm").hide();
                 $(".slideFormaPago").hide();
                 $(".slideOption1").slideToggle();
-                $('#divComprar').append("<a href=\"#pago\" id=\"comprar\" class=\"button orange\">Comprar curso (USD $850.00)</a>&nbsp;&nbsp;");
-                $('#divComprar').append("<a href=\"#pago\" id=\"apartar\" class=\"button orange\">Apartar mi lugar (USD $199.00)</a>");
+
+                $('#divComprar').append("<a href=\"#pago\" id=\"comprar\" ><img src=\"imagenes/boton_pagar.png\" /></a>");
+                $('#divComprar').append("<a href=\"#pago\" id=\"apartar\" ><img src=\"imagenes/boton_apartar.png\" /></a>");
                 var target_offset = $("#pago").offset();
 
                 $('#comprar').click(function () {
@@ -225,15 +228,22 @@
                     async: false,
                     crossDomain: true,
                     success: function (response) {
-
+                        $().waitingpopup('close');
                         $.each(response, function (index, p) {
 
-                            if (p.Id == "paypal") {
-                                window.top.location.replace(p.Descripcion);
-                            }
-                            else {
-                                window.top.location.replace(p.Descripcion);
-                            }
+                            $(".slideFormaPago").hide();
+                            $(".slideGracias").slideToggle();
+
+                            window.top.location.replace(p.Descripcion);
+
+                            //if (p.Id == "paypal") {
+                            //window.open(p.Descripcion, '_blank');
+                            //  window.top.location.replace(p.Descripcion);
+                            //}
+                            //else {
+                            //window.open(p.Descripcion, '_blank');
+                            //  window.top.location.replace(p.Descripcion);
+                            //}
 
                         });
 
@@ -248,6 +258,7 @@
                         $().waitingpopup('close');
                     }
                 });
+
             }
 
             function Guardar() {
@@ -306,7 +317,6 @@
                         });
 
                         $('#ddlPais').msDropDown().data('dd').set('selectedIndex', 0);
-
 
                         $().waitingpopup('close');
 
@@ -368,7 +378,7 @@
 
             ObtenerPaises();
             ObtieneCursos();
-            //dummyData();
+            dummyData();
 
         });
 
@@ -377,197 +387,268 @@
 <body>  
     <div id="form">                
         <table rules="none" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color:transparent;margin-right:20px">
-              <tr>
+            <tr>
                 <td>
                    <div class="slideForm" id="slideForm" style="display: block;">
-                    <table>
-                          <tr>
-                                <td align="left" style="width:270px;" >
-                                    Nombre:
+                        <table id="tablaRegistro" border="0" cellpadding="0" cellspacing="0">	
+                            <tr>
+	                            <td colspan="4">
+		                            <img src="imagenes/registro_03.png" width="977" height="218" alt="" /></td>
+                            </tr>
+                            <tr> 
+	                            <td colspan="3" style="background-image:url(imagenes/registro_05.png);width:976px;height:542px;">
+                                    <table>
+                                          <tr>
+                                                <td align="left" style="width:270px;" >
+                                                    Nombre:
+                                                </td>
+                                                <td align="left" style="width:200px;" >
+                                                    <input data-validate-presence="true" data-validate-error="#validation1" type="text" name="txtNombre" id="txtNombre" 
+                                                    class="input-xlarge" >
+                                                </td>
+                                                <td align="left">
+                                                    <div class="error" id="validation1">Campo requerido.</div>
+                                                </td>
+                                          </tr>
+                                         <tr> 
+                                             <td align="left">
+                                            Apellidos: </td>
+                                             <td align="left" >
+                                                    <input data-validate-presence="true" data-validate-error="#validation2" type="text" name="txtApellidos" id="txtApellidos" 
+                                                        class="input-xlarge" >
+                                            </td>
+                                            <td align="left">
+                                                <div class="error" id="validation2">Campo requerido.</div>
+                                            </td>   
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        Mail: 
+                                    </td>
+                                    <td align="left" >
+                                        <input type="text" name="txtMail" id="txtMail" 
+                                                    class="input-xlarge" data-valdiate-presence="true" data-validate-email="true" 
+                                                    data-validate-error="#email" data-validate-failed="true">
+                                    </td>
+                                    <td align="left">
+                                        <div class="error email-error" id="email">Escribe un mail válido.</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" >
+                                        Compañia: 
+                                    </td>
+                                    <td align="left" >
+                                        <input id="txtCompany" name="txtCompany" class="input-xlarge" type="text" value="" size="25" />
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>   
+                                     <td align="left">
+                                        Dirección: 
+                                     </td>
+                                     <td align="left" >
+                                        <input id="txtDireccion" name="txtDireccion" class="input-xlarge" type="text"  data-validate-presence="true" data-validate-error="#validationdir" />
+                                    </td>
+                                    <td align="left">
+                                            <div class="error" id="validationdir">Campo requerido.</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        Teléfono: 
+                                    </td>
+                                    <td align="left" >
+                                        <input id="txtTelefono" name="txtTelefono" class="input-xlarge" type="text" data-validate-presence="true" data-validate-error="#validationtel" />
+                                    </td>
+                                     <td align="left">
+                                       <div class="error" id="validationtel">Campo requerido.</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left">
+                                        Ciudad:
+                                    </td>
+                                    <td align="left" >
+                                          <input id="txtCiudad" name="txtCiudad" class="input-xlarge" type="text" data-validate-presence="true" data-validate-error="#validationcd" />
+                                    </td>
+                                     <td align="left">
+                                       <div class="error" id="validationcd">Campo requerido.</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                     <td align="left">
+                                         País: 
+                                     </td>
+                                     <td align="left" >
+                                         <select name="ddlPais" id="ddlPais" style="width:250px" data-validate-selected="2,*" data-validate-error=".country-error" >
+                                          </select>
+                                     </td>
+                                     <td>
+                                        <div class="error country-error selected-error">Selecciona un país.</div>
+                                     </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" valign="top" >
+                                        ¿Como te enteraste de nosotros? 
+                                    </td>
+                                    <td align="left" >
+                                        <select name="ddlHow" id="ddlHow" style="width:250px" data-validate-selected="2,*" data-validate-error=".how-error" >
+                                                <option value="0">[Selecciona una opción]</option>
+                                                <option value="1">Facebook</option>
+                                                <option value="2">Twitter</option>
+                                                <option value="3">Google</option>
+                                                <option value="4">Yahoo</option>
+                                                <option value="5">Radio</option>
+                                                <option value="6">3dTotal</option>
+                                                <option value="7">DeathFall</option>
+                                                <option value="8">Portal de Internet</option>
+                                                <option value="9">Conferencia</option>
+                                                <option value="10">Otra</option>
+                                            </select>
+                                          <input type="text" value="" id="txtOtra" size="25" />
+                                    </td>
+                                    <td>
+                                        <div class="error how-error selected-error">Selecciona una opción.</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" valign="top" >
+                                        ¿En que curso estás interesado? 
+                                    </td>
+                                    <td align="left" >
+                                          <select name="ddlCursos" id="ddlCursos" style="width:400px" 
+                                          data-validate-selected="2,*" data-validate-error=".course-error" >
+                                          </select>
+                                    </td>
+                                    <td>
+                                        <div class="error course-error selected-error">Selecciona un curso.</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td align="left" valign="top"><br />
+                                        <input type="checkbox" name="membership[feature]" value="brochure" 
+                                        data-validate-checked="1,*" data-validate-error=".feature-error" data-validate-failed="true" id="chkTerminos">
+                                            <a href="http://cgpreceptor.com/terminos.html" target="_blank">Términos y Condiciones</a> 
+                                        <br />
+                                        <div class="error feature-error checked-error" style="display: none;">Debes aceptar los términos y condiciones.</div>
+                                    </td>
+                                    <td valign="top" rowspan="2" align="center">
+                                         <br />
+                                        <a href="#pago" id="registro" data-validate="#form"><img width="280px" height="100px" src="imagenes/boton_datos.png" /></a><br /><br />
+                                        Al enviar tus datos podras apartar/comprar tu curso.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <div style="vertical-align:middle;"><br />
+                                            <img alt="ayuda" width="24px" height="24px" src="images/info.png" />¿Tienes pregunta o dudas? Estamos para ayudarte <a href="mailto:info@cgpreceptor.com">info@cgpreceptor.com</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                   </table>
+		                        </td>
+	                            <td>
+		                            <img src="imagenes/registro_06.png" width="1" height="542" alt="">
                                 </td>
-                                <td align="left" style="width:200px;" >
-                                    <input data-validate-presence="true" data-validate-error="#validation1" type="text" name="txtNombre" id="txtNombre" 
-                                    class="input-xlarge" >
-                                </td>
-                                <td align="left">
-                                    <div class="error" id="validation1">Campo requerido.</div>
-                                </td>
-                          </tr>
-                         <tr> 
-                    <td align="left">
-                        Apellidos: </td>
-                         <td align="left" >
-                                <input data-validate-presence="true" data-validate-error="#validation2" type="text" name="txtApellidos" id="txtApellidos" 
-                                    class="input-xlarge" >
-                        </td>
-                        <td align="left">
-                            <div class="error" id="validation2">Campo requerido.</div>
-                        </td>
-                </tr>
-                <tr>
-                    <td align="left">
-                        Mail: 
-                    </td>
-                    <td align="left" >
-                        <input type="text" name="txtMail" id="txtMail" 
-                                    class="input-xlarge" data-valdiate-presence="true" data-validate-email="true" 
-                                    data-validate-error="#email" data-validate-failed="true">
-                    </td>
-                    <td align="left">
-                        <div class="error email-error" id="email">Escribe un mail válido.</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="left" >
-                        Compañia: 
-                    </td>
-                    <td align="left" >
-                        <input id="txtCompany" name="txtCompany" class="input-xlarge" type="text" value="" size="25" />
-                    </td>
-                    <td></td>
-                </tr>
-                <tr>   
-                     <td align="left">
-                        Dirección: 
-                     </td>
-                     <td align="left" >
-                        <input id="txtDireccion" name="txtDireccion" class="input-xlarge" type="text"  data-validate-presence="true" data-validate-error="#validationdir" />
-                    </td>
-                    <td align="left">
-                            <div class="error" id="validationdir">Campo requerido.</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="left">
-                        Teléfono: 
-                    </td>
-                    <td align="left" >
-                        <input id="txtTelefono" name="txtTelefono" class="input-xlarge" type="text" data-validate-presence="true" data-validate-error="#validationtel" />
-                    </td>
-                     <td align="left">
-                       <div class="error" id="validationtel">Campo requerido.</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="left">
-                        Ciudad:
-                    </td>
-                    <td align="left" >
-                          <input id="txtCiudad" name="txtCiudad" class="input-xlarge" type="text" data-validate-presence="true" data-validate-error="#validationcd" />
-                    </td>
-                     <td align="left">
-                       <div class="error" id="validationcd">Campo requerido.</div>
-                    </td>
-                </tr>
-                <tr>
-                     <td align="left">
-                         País: 
-                     </td>
-                     <td align="left" >
-                         <select name="ddlPais" id="ddlPais" style="width:250px" data-validate-selected="2,*" data-validate-error=".country-error" >
-                          </select>
-                     </td>
-                     <td>
-                        <div class="error country-error selected-error">Selecciona un país.</div>
-                     </td>
-                </tr>
-                <tr>
-                    <td align="left" valign="top" >
-                        ¿Como te enteraste de nosotros? 
-                    </td>
-                    <td align="left" >
-                        <select name="ddlHow" id="ddlHow" style="width:250px" data-validate-selected="2,*" data-validate-error=".how-error" >
-                                <option value="0">[Selecciona una opción]</option>
-                                <option value="1">Facebook</option>
-                                <option value="2">Twitter</option>
-                                <option value="3">Google</option>
-                                <option value="4">Yahoo</option>
-                                <option value="5">Radio</option>
-                                <option value="6">3dTotal</option>
-                                <option value="7">DeathFall</option>
-                                <option value="8">Portal de Internet</option>
-                                <option value="9">Conferencia</option>
-                                <option value="10">Otra</option>
-                            </select>
-                          <input type="text" value="" id="txtOtra" size="25" />
-                    </td>
-                    <td>
-                        <div class="error how-error selected-error">Selecciona una opción.</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="left" valign="top" >
-                        ¿En que curso estás interesado? 
-                    </td>
-                    <td align="left" >
-                          <select name="ddlCursos" id="ddlCursos" style="width:400px" 
-                          data-validate-selected="2,*" data-validate-error=".course-error" >
-                          </select>
-                    </td>
-                    <td>
-                        <div class="error course-error selected-error">Selecciona un curso.</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td align="left" valign="top"><br />
-                        <input type="checkbox" name="membership[feature]" value="brochure" 
-                        data-validate-checked="1,*" data-validate-error=".feature-error" data-validate-failed="true" id="chkTerminos">
-                            <a href="http://cgpreceptor.com/terminos.html" target="_blank">Términos y Condiciones</a> 
-                        <br />
-                    </td>
-                    <td valign="top">
-                        <div class="error feature-error checked-error" style="display: none;">Debes aceptar los términos y condiciones.</div>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td align="left" colspan="2">
-                       <br />
-                        <a href="#pago" id="registro" data-validate="#form" class="button orange">Enviar datos</a><br /><br />
-                        Al enviar tus datos podras apartar/comprar tu curso.
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                    </td>
-                    <td colspan="2">
-                        <div style="vertical-align:middle;"><br />
-                            <img alt="ayuda" width="24px" height="24px" src="images/info.png" />¿Tienes pregunta o dudas? Estamos para ayudarte <a href="mailto:info@cgpreceptor.com">info@cgpreceptor.com</a>
-                        </div>
-                    </td>
-                </tr>
-                    </table>
+                            </tr>
+                        </table>
                  </div>
-                </td>
-              </tr>
-             <tr>
-                 <td colspan="2">
-                <div class="slideOption1" id="slideOption1" style="display: none;">
-                    <br /><br />
-                        Muchisimas gracias wey!<br /><br />
-                        Ahora tienes la oportunidad de comprar ó apartar el curso<br /><br />
-                        ¿Que deseas hacer?<br /><br />
-                        <div id="divComprar">
+                   <div class="slideOption1" id="slideOption1" style="display: none;">
+                        <table id="tabla_decide" border="0" cellpadding="0" cellspacing="0">
+	                        <tr>
+		                        <td>
+			                        <img src="imagenes/reserva_03.png" width="977" height="208" alt="" /></td>
+	                        </tr>
+	                        <tr>
+		                        <td align="center" style="background-image:url(imagenes/reserva_05.png);width:977;height:110;">
+                                  <div id="divComprar">
 
-                        </div>
-                        <br /><br />                      
+                                    </div>
+		                        </td>
+	                        </tr>
+	                        <tr>
+		                        <td>
+			                        <img src="imagenes/reserva_07.png" width="977" height="123" alt="" /></td>
+	                        </tr>
+	                        <tr>
+		                        <td>
+			                        <img src="imagenes/reserva_08.png" width="977" height="150" alt="" /></td>
+	                        </tr>
+	                        <tr>
+		                        <td>
+			                        <img src="imagenes/reserva_09.png" width="977" height="142" alt="" /></td>
+	                        </tr>
+                        </table>              
                 </div>
-                <div class="slideFormaPago" id="slideFormaPago" style="display:none;">
-                    Forma de Pago: &nbsp;&nbsp;
-                    <select name="ddlFormaPago" id="ddlFormaPago" style="width:200px">
-                        <option value="1">Paypal</option>
-                        <option value="2">Depósito en Efectivo</option>
-                        <option value="3">Wire Transfer</option>
-                        <option value="4">Western Union</option>
-                        </select>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a href="#pago" id="lnkConfirmar" class="button orange" style="display:none;">Confirmar Orden</a>
-                        <a href="#pago" id="lnkPaypal" class="button orange" style="display:none;">Pasar a pagar</a>
-                             
+                   <div class="slideFormaPago" id="slideFormaPago" style="display:none;">
+                    <table id="Tabla_01" border="0" cellpadding="0" cellspacing="0">
+	                    <tr>
+		                    <td colspan="3">
+			                    <img src="imagenes/registroysuscrip_03.png" width="977" height="208" alt=""></td>
+	                    </tr>
+	                    <tr>
+		                    <td>
+			                    <img src="imagenes/registroysuscrip_05.png" width="332" height="79" alt=""></td>
+		                         <td valign="middle" align="left" style="background-image:url(imagenes/registroysuscrip_06.png);width:326px;height:79px;">
+                                        <select name="ddlFormaPago" id="ddlFormaPago" style="width:200px">
+                                            <option value="1">Paypal</option>
+                                            <option value="2">Depósito en Efectivo</option>
+                                            <option value="3">Wire Transfer</option>
+                                            <option value="4">Western Union</option>
+                                            </select>&nbsp;&nbsp;&nbsp;&nbsp;
+                                </td>
+		                        <td valign="middle" align="left" style="background-image:url(imagenes/registroysuscrip_07.png);width:319px;height:79px;">
+                                    <a href="#pago" id="lnkConfirmar" class="button orange" style="display:none;">Confirmar Orden</a>
+                                    <a href="#pago" id="lnkPaypal" class="button orange" style="display:none;">Pasar a pagar</a>
+                                </td>
+	                    </tr>
+	                    <tr>
+		                    <td colspan="3">
+			                    <img src="imagenes/registroysuscrip_08.png" width="977" height="155" alt=""></td>
+	                    </tr>
+	                    <tr>
+		                    <td colspan="3">
+			                    <img src="imagenes/registroysuscrip_09.png" width="977" height="150" alt=""></td>
+	                    </tr>
+	                    <tr>
+		                    <td colspan="3">
+			                    <img src="imagenes/registroysuscrip_10.png" width="977" height="142" alt=""></td>
+	                    </tr>
+                    </table>         
                 </div>
-            </td>
-        </tr>
-    </table>
+                   <div class="slideGracias" id="slideGracias" style="display: none;">
+                           <table id="tabla-gracias" border="0" cellpadding="0" cellspacing="0">
+	                    <tr>
+		                    <td>
+			                    <img src="imagenes/gracias_03.png" width="977" height="208" alt="" /></td>
+	                    </tr>
+	                    <tr>
+		                    <td>
+			                    <img src="imagenes/gracias_05.png" width="977" height="110" alt="" /></td>
+	                    </tr>
+	                    <tr>
+		                    <td>
+			                    <img src="imagenes/gracias_07.png" width="977" height="123" alt="" /></td>
+	                    </tr>
+	                    <tr>
+		                    <td>
+			                    <img src="imagenes/gracias_08.png" width="977" height="71" alt="" /></td>
+	                    </tr>
+	                    <tr>
+		                    <td>
+			                    <img src="imagenes/gracias_09.png" width="977" height="79" alt=""/></td>
+	                    </tr>
+	                    <tr>
+		                    <td>
+			                    <img src="imagenes/gracias_10.png" width="977" height="142" alt=""/></td>
+	                    </tr>
+                    </table>
+                     </div>
+                </td>
+            </tr>
+        </table>
         <input type="hidden" id="tiporegistro" />
         <input type="hidden" id="idRegistro" />
      </div>
